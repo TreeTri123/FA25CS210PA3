@@ -124,7 +124,6 @@ bool dfs(int r, int c,
     const vector<vector<int>>& parent_c,
     int exit_r, int exit_c) {
 
-    int e_position = maze[exit_r][exit_c];
     int N = maze.size();
     int M = maze[0].size();
 
@@ -141,57 +140,36 @@ bool dfs(int r, int c,
     //Mark as Visited
     visited[r][c] = true;
 
-    //Look at all the directions (up,down,right,left)
+    //Look at all the directions (up,down,right,left) Neighbors
     for (int i = 0; i < 4; i++) {
         int nr = r + dr[i];
         int nc = c + dc[i];
+
+        //Going to look at 0,-1,1 values (Out of bounds)
+        if (nr < 0 || nr >= N || nc < 0 || nc >= M) {
+            continue;
+        }
+
+        //Wall Check
+        if (maze[nr][nc] == 1) {
+            continue;
+        }
+
+        //Visited?
+        if (visited[nr][nc]) {
+            continue;
+        }
+
+        //All passed set parents as nc and nr
+        parent_r[nr][nc] = r;
+        parent_c[nr][nc] = c;
+
+        if (dfs(nr, nc, maze, visited, parent_r, parent_c, exit_r, exit_c)) {
+            return true;
+        }
     }
-    //going to look at 0,-1,1 values
-    if (start == 1)
-
-
-
-
-    if (start == 1) { //wall
-        check all directions for start = 0; when hit 0 recursive
-
-        if start is 0
-        move parent to that direction;
-        recursive dfs
-    }
-
-    if start == e_position then return found exit
-
-    if every direction and out of bounds return no exit found
-
-
-    movement -> parent_r[nr] = r
-                parent_c[nr] = c
-
-    if (visited[parent_r][parent_c] == true) {
-        parent_r =
-    }
-
-    ent_r, ent_c -> is S
-    exit_r, exit_c -> is E
-
-    maze[ent_r][ent_c] -> S
-    maze[exit_r][exit_c] -> E
-
-    assign parent_r and parent_c---tracking
-
-    start at ent_r and ent_c
-    look up down right left for 0, if 1 then look at different direction
-    if all up down right left 1 then return false with no exit found
-    visited? visited[parent_r][parent_c] = true
-    n is -1, 0, +1
-    if below 0 then out of bounds check
-    Wall checks -> maze[r][c] == 1
-
+    return false;
 }
-//     // Your code here
-// }
-
 
 // ----------------------------------------------------------
 // MAIN PROGRAM (students add DFS calls and logic)
