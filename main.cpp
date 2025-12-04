@@ -125,7 +125,13 @@ bool dfs(int r, int c,
     int exit_r, int exit_c) {
 
     int e_position = maze[exit_r][exit_c];
-    int start = maze[r][c];
+    int N = maze.size();
+    int M = maze[0].size();
+
+    //Out of Bounds
+    if (r < 0 || c < 0 || r >= N || c >= M) {
+        return false;
+    }
 
     //Base case to check if current position is exit
     if (r == exit_r && c == exit_c) {
@@ -134,6 +140,14 @@ bool dfs(int r, int c,
 
     //Mark as Visited
     visited[r][c] = true;
+
+    //Look at all the directions (up,down,right,left)
+    for (int i = 0; i < 4; i++) {
+        int nr = r + dr[i];
+        int nc = c + dc[i];
+    }
+    //going to look at 0,-1,1 values
+    if (start == 1)
 
 
 
